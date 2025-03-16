@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import re
 from pydantic import BaseModel
+from prompts.py import msg_law # type: ignore
 
 # Load environment variables
 load_dotenv()
@@ -26,6 +27,10 @@ async def ask_question(request: QuestionRequest):
         completion = client.chat.completions.create(
             model="deepseek-r1-distill-llama-70b",
             messages=[
+                {
+                    "role" : "system",
+                    "content" : msg_law,
+                },
                 {
                     "role": "user",
                     "content": question,
