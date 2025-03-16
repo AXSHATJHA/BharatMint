@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import re
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from prompts import MSG_LAW
 
 # Load environment variables
@@ -13,6 +14,13 @@ client = Groq(api_key=api_key)
 
 # Initialize FastAPI app
 app = FastAPI()
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows all origins; restrict this in production
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows all HTTP methods
+    allow_headers=["*"],  # Allows all HTTP headers
+)
 
 class QuestionRequest(BaseModel):
     question: str
