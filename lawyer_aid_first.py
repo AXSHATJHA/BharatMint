@@ -4,7 +4,7 @@ import os
 from dotenv import load_dotenv
 import re
 from pydantic import BaseModel
-from prompts.py import msg_law # type: ignore
+from prompts import MSG_LAW
 
 # Load environment variables
 load_dotenv()
@@ -29,7 +29,7 @@ async def ask_question(request: QuestionRequest):
             messages=[
                 {
                     "role" : "system",
-                    "content" : msg_law,
+                    "content" : MSG_LAW,
                 },
                 {
                     "role": "user",
